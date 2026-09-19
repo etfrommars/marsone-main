@@ -43,25 +43,4 @@ export const TOOLS_LIST: ToolItem[] = [
       '自动断帧、HEX 格式化与常用指令预置槽'
     ],
   },
-  {
-    id: 'xenoir',
-    name: '红外数据解码器',
-    nameEn: 'XenoIR Optical Decryptor Matrix',
-    subtitle: '基于 Web 的光脉冲红外异星信号解码矩阵与时序示波器',
-    url: '#xenoir-decoder',
-    isExternal: false,
-    icon: 'Radio',
-    badge: 'Web Optical IR // Built-in',
-    alienCodename: 'NODE-GAMMA // XENO-OPTICAL-03',
-    description: '原生纯 Web 实现的红外物理层光脉冲捕获与解析系统。支持 NEC、Sony SIRC、RC-5、Pronto Hex 及火星子空间遥测协议。配备微秒级交互式脉冲示波器、反码完整性校验、代码生成与光标发射模拟。',
-    techStack: ['Web Audio API', 'Waveform Canvas', 'Pronto Hex', 'Microsecond Timing'],
-    protocol: 'NEC 32b / Sony SIRC / RC-5 / Pronto / Xeno Pulse',
-    status: 'READY',
-    features: [
-      '微秒级交互式脉冲时序波形示波器 (Zoom & Measure)',
-      '全协议反码完整性校验与地址/操作码位解析',
-      '支持 Pronto Hex / RAW 时序一键双向转换',
-      '导出 Arduino C++ / Flipper Zero / ESPHome 配置'
-    ],
-  },
 ];

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Radio, Usb, Cable, Volume2, VolumeX, Sparkles, Terminal, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Usb, Cable, Volume2, VolumeX, Sparkles, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { isSoundEnabled, toggleSound, playAlienBeep } from '../utils/audioSynthesizer';
 
 interface NavbarProps {
-  activeTab: 'all' | 'usbee' | 'serialink' | 'xenoir';
-  setActiveTab: (tab: 'all' | 'usbee' | 'serialink' | 'xenoir') => void;
+  activeTab: 'all' | 'usbee' | 'serialink';
+  setActiveTab: (tab: 'all' | 'usbee' | 'serialink') => void;
   alienMode: boolean;
   setAlienMode: (val: boolean | ((prev: boolean) => boolean)) => void;
 }
@@ -14,7 +14,6 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
   const [apiSupport, setApiSupport] = useState({
     usb: false,
     serial: false,
-    audio: false,
   });
 
   useEffect(() => {
@@ -22,7 +21,6 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
     setApiSupport({
       usb: typeof navigator !== 'undefined' && 'usb' in navigator,
       serial: typeof navigator !== 'undefined' && 'serial' in navigator,
-      audio: typeof window !== 'undefined' && ('AudioContext' in window || 'webkitAudioContext' in window),
     });
   }, []);
 
@@ -49,7 +47,7 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
             <span>MARS-ONE SUBSPACE RELAY // 7D5F</span>
           </span>
           <span className="text-slate-600">|</span>
-          <span>ORBITAL FREQ: <span className="text-cyan-300">38.20 kHz</span></span>
+          <span>BAUD BUS: <span className="text-cyan-300">AUTO-SYNC (300 ~ 921600)</span></span>
           <span className="text-slate-600 hidden sm:inline">|</span>
           <span className="hidden sm:inline">COORDINATES: <span className="text-emerald-300">38°12'N 142°50'E</span></span>
         </div>
@@ -131,7 +129,7 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
               </span>
             </div>
             <p className="text-[11px] text-slate-400 tracking-wide font-mono-code">
-              {alienMode ? '⏣ ☍ ⎈ 异星硬件与脉冲控制矩阵' : '外星文明 Web 硬件与信号调试工坊'}
+              {alienMode ? '⏣ ☍ ⎈ 异星硬件与通信控制矩阵' : '外星文明 Web 硬件调试与通信工坊'}
             </p>
           </div>
         </div>
@@ -144,13 +142,13 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
               setActiveTab('all');
               playAlienBeep(600, 'sine', 0.04);
             }}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
               activeTab === 'all'
                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
           >
-            {alienMode ? '◈ 核心控制台' : '全部工具'}
+            {alienMode ? '◈ 核心控制矩阵' : '全部工具'}
           </button>
           <button
             id="nav-tab-usbee"
@@ -158,13 +156,13 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
               setActiveTab('usbee');
               playAlienBeep(650, 'sine', 0.04);
             }}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 ${
               activeTab === 'usbee'
                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
           >
-            <Usb className="w-3 h-3 text-emerald-400" />
+            <Usb className="w-3.5 h-3.5 text-emerald-400" />
             <span>USB 调试工具</span>
           </button>
           <button
@@ -173,30 +171,14 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
               setActiveTab('serialink');
               playAlienBeep(700, 'sine', 0.04);
             }}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 ${
               activeTab === 'serialink'
                 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
           >
-            <Cable className="w-3 h-3 text-cyan-400" />
+            <Cable className="w-3.5 h-3.5 text-cyan-400" />
             <span>串口调试工具</span>
-          </button>
-          <button
-            id="nav-tab-xenoir"
-            onClick={() => {
-              setActiveTab('xenoir');
-              playAlienBeep(750, 'sine', 0.04);
-            }}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 ${
-              activeTab === 'xenoir'
-                ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-            }`}
-          >
-            <Radio className="w-3 h-3 text-teal-400 animate-pulse" />
-            <span>红外数据解码器</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           </button>
         </div>
 
@@ -206,7 +188,7 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
             id="alien-glyphs-btn"
             onClick={handleAlienModeToggle}
             title="切换外星量子符文 / 地球字符模式"
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-mono-code flex items-center gap-1.5 border transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono-code flex items-center gap-1.5 border transition-all ${
               alienMode
                 ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300 alien-glow-sm'
                 : 'bg-slate-900 border-slate-700/60 text-slate-300 hover:border-emerald-500/40'
@@ -214,19 +196,6 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
           >
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
             <span className="hidden sm:inline">{alienMode ? '异星符文 ON' : '符文模式'}</span>
-          </button>
-
-          <button
-            id="launch-ir-quick-btn"
-            onClick={() => {
-              setActiveTab('xenoir');
-              playAlienBeep(850, 'triangle', 0.08);
-            }}
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-600 text-black hover:brightness-110 active:scale-95 transition-all shadow-[0_0_15px_rgba(13,242,201,0.35)] flex items-center gap-1.5"
-          >
-            <Radio className="w-3.5 h-3.5" />
-            <span className="hidden xs:inline">启动红外解码</span>
-            <span className="xs:hidden">解码</span>
           </button>
         </div>
       </div>

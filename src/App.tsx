@@ -1,36 +1,21 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import ToolsGrid from './components/ToolsGrid';
-import IrDecoderView from './components/ir-decoder/IrDecoderView';
 import EmbeddedToolModal from './components/EmbeddedToolModal';
 import AlienBackground from './components/AlienBackground';
 import Footer from './components/Footer';
 import { ToolItem } from './types';
 import { TOOLS_LIST } from './data/toolsData';
-import { Radio, Usb, Cable, ExternalLink, Sparkles, Terminal, Shield, Zap } from 'lucide-react';
+import { Usb, Cable, ExternalLink, Sparkles, Terminal, Shield, ArrowRight } from 'lucide-react';
 import { playAlienBeep } from './utils/audioSynthesizer';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'all' | 'usbee' | 'serialink' | 'xenoir'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'usbee' | 'serialink'>('all');
   const [alienMode, setAlienMode] = useState(false);
   const [previewTool, setPreviewTool] = useState<ToolItem | null>(null);
 
   const handleOpenTool = (tool: ToolItem) => {
-    if (tool.id === 'xenoir') {
-      setActiveTab('xenoir');
-    } else {
-      setPreviewTool(tool);
-    }
-  };
-
-  const scrollToDecoder = () => {
-    setActiveTab('xenoir');
-    setTimeout(() => {
-      const el = document.getElementById('xenoir-decoder');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 50);
+    setPreviewTool(tool);
   };
 
   const usbeeTool = TOOLS_LIST.find((t) => t.id === 'usbee')!;
@@ -67,16 +52,16 @@ export default function App() {
 
               <h1 className="font-alien-display font-black text-2xl sm:text-4xl text-slate-100 tracking-wide leading-tight">
                 {alienMode ? (
-                  <span>⏣ XENOWEB // 异星量子硬件与信号调试矩阵 ◈</span>
+                  <span>⏣ XENOWEB // 异星硬件与通信控制矩阵 ◈</span>
                 ) : (
                   <>
-                    外星人 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-200 to-teal-400">Web 硬件与信号</span> 调试工具集
+                    外星人 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-200 to-teal-400">Web 硬件与通信</span> 调试工具集
                   </>
                 )}
               </h1>
 
               <p className="text-sm sm:text-base text-slate-300 font-mono-code leading-relaxed">
-                面向未来硬件极客的外星文明科技工坊。深度融合现代 Web 标准：免驱底层 <span className="text-emerald-300 font-semibold">WebUSB 数据包嗅探</span>、极速 <span className="text-cyan-300 font-semibold">Web Serial 串口通信</span>，以及全新加入的原生 <span className="text-teal-300 font-semibold">Web 红外数据微秒解码矩阵</span>。
+                面向未来硬件极客的外星文明科技工坊。深度融合现代 Web 标准：免安装驱动底层 <span className="text-emerald-300 font-semibold">WebUSB 数据包嗅探控制台</span> 与极速自适应波特率 <span className="text-cyan-300 font-semibold">Web Serial 串口通信控制台</span>。
               </p>
 
               {/* Badges */}
@@ -87,11 +72,11 @@ export default function App() {
                 </span>
                 <span className="px-2.5 py-1 rounded-lg bg-[#070e19] border border-cyan-500/30 text-cyan-300 flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5" />
-                  <span>免驱动即开即用</span>
+                  <span>免安装第三方驱动</span>
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-[#070e19] border border-teal-500/30 text-teal-300 flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5" />
-                  <span>微秒级光脉冲示波</span>
+                <span className="px-2.5 py-1 rounded-lg bg-[#070e19] border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
+                  <Usb className="w-3.5 h-3.5" />
+                  <span>HEX / 字节双向监听</span>
                 </span>
               </div>
             </div>
@@ -106,24 +91,27 @@ export default function App() {
                 </span>
               </div>
               <div className="flex items-center justify-between text-slate-300">
-                <span className="text-slate-500">调制载波基频:</span>
-                <span className="text-cyan-300 font-semibold">38.0 ~ 42.5 kHz</span>
+                <span className="text-slate-500">波特率自适应:</span>
+                <span className="text-cyan-300 font-semibold">300 ~ 921600+ bps</span>
               </div>
               <div className="flex items-center justify-between text-slate-300">
-                <span className="text-slate-500">时序采样分辨率:</span>
-                <span className="text-emerald-300 font-semibold">1 µs (微秒)</span>
+                <span className="text-slate-500">硬件接口层:</span>
+                <span className="text-emerald-300 font-semibold">WebUSB & Web Serial</span>
               </div>
               <div className="flex items-center justify-between text-slate-300">
                 <span className="text-slate-500">活动工具节点:</span>
-                <span className="text-purple-300 font-semibold">3 / 3 在线</span>
+                <span className="text-emerald-300 font-semibold">2 / 2 在线</span>
               </div>
               <button
-                id="hero-jump-decoder-btn"
-                onClick={scrollToDecoder}
+                id="hero-jump-usbee-btn"
+                onClick={() => {
+                  setActiveTab('usbee');
+                  playAlienBeep(800, 'sine', 0.05);
+                }}
                 className="w-full mt-2 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-black hover:bg-emerald-400 active:scale-95 transition-all flex items-center justify-center gap-1.5"
               >
-                <Radio className="w-3.5 h-3.5" />
-                <span>立即探索红外解码矩阵</span>
+                <span>进入 USB 调试工具</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
@@ -131,33 +119,13 @@ export default function App() {
 
         {/* View Switch: All Tools, or specific Tool Tab */}
         {activeTab === 'all' && (
-          <div className="space-y-14">
-            {/* 1. Tools Grid: USBee, SeriaLink, XenoIR */}
+          <div className="space-y-12">
+            {/* Tools Grid: USBee, SeriaLink */}
             <section id="tools-showcase">
               <ToolsGrid
                 onOpenTool={handleOpenTool}
-                onActivateDecoder={scrollToDecoder}
                 alienMode={alienMode}
               />
-            </section>
-
-            {/* 2. Built-in Web IR Decoder Terminal */}
-            <section id="xenoir-section" className="space-y-4 pt-4 border-t border-emerald-500/20">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <h2 className="font-alien-display font-bold text-lg sm:text-xl text-slate-100 tracking-wide">
-                      内置核心工具 // 异星光脉冲红外解码器
-                    </h2>
-                  </div>
-                  <p className="text-xs text-slate-400 mt-1 font-mono-code">
-                    原生 Web 环境交互式微秒红外脉冲分析器，即时解析 NEC、Sony SIRC 及异星深空遥测。
-                  </p>
-                </div>
-              </div>
-
-              <IrDecoderView />
             </section>
           </div>
         )}
@@ -255,28 +223,6 @@ export default function App() {
             </div>
           </div>
         )}
-
-        {/* Dedicated XenoIR view */}
-        {activeTab === 'xenoir' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => {
-                  setActiveTab('all');
-                  playAlienBeep(600, 'sine', 0.04);
-                }}
-                className="px-3 py-1.5 rounded-lg text-xs font-mono-code bg-slate-900 border border-slate-700 text-slate-300 hover:text-emerald-300 transition-colors"
-              >
-                &larr; 返回工具集合大厅
-              </button>
-              <div className="text-xs font-mono-code text-slate-400">
-                MODE: FULLSCREEN DECODER WORKBENCH
-              </div>
-            </div>
-
-            <IrDecoderView />
-          </div>
-        )}
       </main>
 
       {/* Embedded Tool Modal (for USBee or SeriaLink) */}
@@ -286,7 +232,7 @@ export default function App() {
       />
 
       {/* Footer */}
-      <Footer onScrollToDecoder={scrollToDecoder} />
+      <Footer />
     </div>
   );
 }
