@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Chakra Petch', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .font-mono-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-alien-display {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+/* Custom Alien HUD grid & scanlines */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(13, 242, 201, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 242, 201, 0.05) 1px, transparent 1px);
+}
+
+.bg-radial-nebula {
+  background: radial-gradient(circle at 50% 20%, rgba(13, 242, 201, 0.12) 0%, rgba(59, 130, 246, 0.05) 40%, rgba(5, 8, 15, 0.95) 80%);
+}
+
+.alien-glow {
+  box-shadow: 0 0 25px -5px rgba(13, 242, 201, 0.35);
+}
+
+.alien-glow-sm {
+  box-shadow: 0 0 12px -2px rgba(13, 242, 201, 0.25);
+}
+
+.alien-glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.35);
+}
+
+/* Custom subtle scanline overlay */
+.scanline-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.3)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Corner brackets for sci-fi tech cards */
+.corner-bracket {
+  position: relative;
+}
+.corner-bracket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #0df2c9;
+  border-left: 2px solid #0df2c9;
+  pointer-events: none;
+}
+.corner-bracket::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid #0df2c9;
+  border-right: 2px solid #0df2c9;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090e17;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0df2c9;
+}
