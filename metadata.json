@@ -1,6 +1,6 @@
 {
-  "name": "XenoWeb Tools - 异星科技 Web 工具集",
-  "description": "外星文明科技风格的 Web 硬件与信号调试工具集合，包含 USB 调试工具 (USBee) 与串口调试工具 (SeriaLink)。",
+  "name": "MARS one - 火星一号 Web 工具集",
+  "description": "火星一号火星科技 Web 硬件与信号调试工具集合，包含 USB 调试工具 (USBee)、串口调试工具 (SeriaLink) 与 CH552T-TOOLS 多功能 USB 转接调试工具。",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

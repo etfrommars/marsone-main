@@ -1,4 +1,4 @@
-import { Usb, Cable, ExternalLink, Play, Layers, ShieldCheck, Sparkles } from 'lucide-react';
+import { Usb, Cable, Cpu, ExternalLink, Play, Layers, ShieldCheck, Sparkles } from 'lucide-react';
 import { ToolItem } from '../types';
 import { TOOLS_LIST } from '../data/toolsData';
 import { playAlienBeep } from '../utils/audioSynthesizer';
@@ -15,6 +15,8 @@ export default function ToolsGrid({ onOpenTool, alienMode }: ToolsGridProps) {
         return <Usb className="w-6 h-6 text-emerald-300" />;
       case 'Cable':
         return <Cable className="w-6 h-6 text-cyan-300" />;
+      case 'Cpu':
+        return <Cpu className="w-6 h-6 text-teal-300" />;
       default:
         return <Layers className="w-6 h-6 text-emerald-300" />;
     }
@@ -28,24 +30,24 @@ export default function ToolsGrid({ onOpenTool, alienMode }: ToolsGridProps) {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
             <h2 className="font-alien-display font-bold text-lg sm:text-xl text-slate-100 tracking-wide">
-              {alienMode ? '◈ 异星殖民地 WEB 硬件与通讯控制矩阵' : '外星人 WEB 小工具集合'}
+              {alienMode ? '◈ MARS ONE // 火星一号硬件与通讯控制矩阵' : '火星一号 (MARS ONE) Web 工具集合'}
             </h2>
           </div>
           <p className="text-xs text-slate-400 mt-1 font-mono-code">
-            基于现代浏览器原生 Web 标准 API 构建的极客硬件通讯与数据包控制台。
+            基于现代浏览器原生 Web 标准 API 构建的极客硬件通讯与多功能 USB 转接控制台。
           </p>
         </div>
 
         <div className="text-xs font-mono-code text-slate-400 flex items-center gap-2">
           <span>总节点:</span>
           <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
-            2 ACTIVE NODES
+            3 ACTIVE NODES
           </span>
         </div>
       </div>
 
-      {/* Grid of Tools (2 Columns) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Grid of Tools (3 Columns on large screens) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {TOOLS_LIST.map((tool) => {
           return (
             <div
@@ -57,7 +59,9 @@ export default function ToolsGrid({ onOpenTool, alienMode }: ToolsGridProps) {
                 className={`h-1 w-full bg-gradient-to-r ${
                   tool.id === 'usbee'
                     ? 'from-emerald-500 via-teal-400 to-cyan-500'
-                    : 'from-cyan-500 via-blue-500 to-emerald-400'
+                    : tool.id === 'serialink'
+                    ? 'from-cyan-500 via-blue-500 to-emerald-400'
+                    : 'from-teal-400 via-emerald-400 to-indigo-500'
                 }`}
               />
 
@@ -151,7 +155,7 @@ export default function ToolsGrid({ onOpenTool, alienMode }: ToolsGridProps) {
         <div className="flex items-center gap-2.5">
           <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>
-            外星科技 Web 硬件互联矩阵已全面打通 WebUSB 与 Web Serial 双模物理通讯。无需安装外置应用或专用驱动，纯浏览器端即刻探测与调试。
+            火星一号 (MARS ONE) 火星科技 Web 硬件互联矩阵已全面打通 WebUSB、Web Serial 与 CH552T 多模物理通讯。无需安装外置应用或专用驱动，纯浏览器端即刻探测与调试。
           </span>
         </div>
         <div className="text-emerald-400/80 shrink-0">

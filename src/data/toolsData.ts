@@ -43,4 +43,25 @@ export const TOOLS_LIST: ToolItem[] = [
       '自动断帧、HEX 格式化与常用指令预置槽'
     ],
   },
+  {
+    id: 'ch552t',
+    name: 'CH552T-TOOLS',
+    nameEn: 'CH552T Multi-Bridge Studio',
+    subtitle: '多功能 USB 转接桥接与硬件外设调试矩阵',
+    url: 'https://ch552t-tools.marsone.ccwu.cc/',
+    isExternal: true,
+    icon: 'Cpu',
+    badge: 'Multi-USB Bridge',
+    alienCodename: 'NODE-GAMMA // CH552T-MULTIVERSE',
+    description: '专为沁恒 CH552T 及增强型 E8051 架构生态打造的多功能 USB 转接调试工作台。集成了 USB 虚拟串口/CDC 桥接、USB HID 自定义报文交互、I2C/SPI/GPIO 调试通道与高速外设数据流监测。',
+    techStack: ['CH552T E8051', 'Multi-USB Bridge', 'WebUSB / WebHID', 'Hardware I/O'],
+    protocol: 'USB Full-Speed / Multi-Function Bridge / CDC / HID / Custom Endpoint',
+    status: 'ONLINE',
+    features: [
+      '多功能 USB 转接桥接与多协议外设通道调试',
+      'CH552T 固件交互与自定义端点数据包收发',
+      '支持虚拟串口、HID 报文与 GPIO 信号交互',
+      '纯 Web 免驱直连，免装第三方驱动即插即用'
+    ],
+  },
 ];

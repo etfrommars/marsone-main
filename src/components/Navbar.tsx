@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Usb, Cable, Volume2, VolumeX, Sparkles, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Usb, Cable, Cpu, Volume2, VolumeX, Sparkles, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { isSoundEnabled, toggleSound, playAlienBeep } from '../utils/audioSynthesizer';
 
 interface NavbarProps {
-  activeTab: 'all' | 'usbee' | 'serialink';
-  setActiveTab: (tab: 'all' | 'usbee' | 'serialink') => void;
+  activeTab: 'all' | 'usbee' | 'serialink' | 'ch552t';
+  setActiveTab: (tab: 'all' | 'usbee' | 'serialink' | 'ch552t') => void;
   alienMode: boolean;
   setAlienMode: (val: boolean | ((prev: boolean) => boolean)) => void;
 }
@@ -88,7 +88,7 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
           <button
             id="sound-toggle-btn"
             onClick={handleSoundToggle}
-            title={soundOn ? '关闭外星音效反馈' : '开启外星音效反馈'}
+            title={soundOn ? '关闭火星音效反馈' : '开启火星音效反馈'}
             className="text-slate-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
           >
             {soundOn ? <Volume2 className="w-3.5 h-3.5 text-emerald-400" /> : <VolumeX className="w-3.5 h-3.5 text-slate-500" />}
@@ -107,29 +107,36 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
           }}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-[#060e18] border border-emerald-500/40 flex items-center justify-center alien-glow-sm group-hover:border-emerald-400 group-hover:shadow-[0_0_15px_rgba(13,242,201,0.4)] transition-all">
-            <img 
-              src="/alien-avatar.jpg" 
-              alt="异星人头像" 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = '/favicon.svg';
-              }}
-            />
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#0df2c9] border border-[#05080f]" />
+          {/* Logo icon with MARS typography */}
+          <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#061e1a] via-[#071722] to-[#040e16] border border-emerald-400/50 flex flex-col items-center justify-center alien-glow-sm group-hover:border-emerald-300 group-hover:shadow-[0_0_18px_rgba(13,242,201,0.5)] transition-all overflow-hidden select-none shrink-0 shadow-inner px-1">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(13,242,201,0.18)_0%,_transparent_70%)]" />
+            {/* Cybernetic corner accents */}
+            <div className="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-emerald-400/70" />
+            <div className="absolute top-1 right-1 w-1.5 h-1.5 border-t border-r border-emerald-400/70" />
+            <div className="absolute bottom-1 left-1 w-1.5 h-1.5 border-b border-l border-emerald-400/70" />
+            <div className="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-emerald-400/70" />
+            
+            <span className="relative font-alien-display font-black text-[9.5px] tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-teal-100 to-cyan-300 drop-shadow-[0_0_5px_rgba(13,242,201,0.7)] leading-none text-center">
+              MARS
+            </span>
+            <span className="relative text-[6.5px] font-mono-code font-bold tracking-widest text-emerald-400/90 leading-none mt-1">
+              ONE
+            </span>
+            
+            {/* Quantum online indicator */}
+            <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_5px_#0df2c9] border border-[#05080f]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-alien-display font-bold text-lg sm:text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-200 to-teal-300">
-                XENOWEB
+                MARS ONE
               </span>
               <span className="px-1.5 py-0.5 rounded text-[10px] font-mono-code font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                MARS-ONE v2.6
+                火星一号 v2.6
               </span>
             </div>
             <p className="text-[11px] text-slate-400 tracking-wide font-mono-code">
-              {alienMode ? '⏣ ☍ ⎈ 异星硬件与通信控制矩阵' : '外星文明 Web 硬件调试与通信工坊'}
+              {alienMode ? '⏣ ☍ ⎈ 火星一号硬件与通信控制矩阵' : '火星一号 · 火星科技 Web 硬件调试与通信工坊'}
             </p>
           </div>
         </div>
@@ -180,6 +187,21 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
             <Cable className="w-3.5 h-3.5 text-cyan-400" />
             <span>串口调试工具</span>
           </button>
+          <button
+            id="nav-tab-ch552t"
+            onClick={() => {
+              setActiveTab('ch552t');
+              playAlienBeep(750, 'sine', 0.04);
+            }}
+            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 ${
+              activeTab === 'ch552t'
+                ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+            }`}
+          >
+            <Cpu className="w-3.5 h-3.5 text-teal-400" />
+            <span>CH552T-TOOLS</span>
+          </button>
         </div>
 
         {/* Alien Glyphs toggle & Quick Action */}
@@ -187,7 +209,7 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
           <button
             id="alien-glyphs-btn"
             onClick={handleAlienModeToggle}
-            title="切换外星量子符文 / 地球字符模式"
+            title="切换火星量子符文 / 标准字符模式"
             className={`px-3 py-1.5 rounded-lg text-xs font-mono-code flex items-center gap-1.5 border transition-all ${
               alienMode
                 ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300 alien-glow-sm'
@@ -195,7 +217,7 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden sm:inline">{alienMode ? '异星符文 ON' : '符文模式'}</span>
+            <span className="hidden sm:inline">{alienMode ? '火星符文 ON' : '符文模式'}</span>
           </button>
         </div>
       </div>
