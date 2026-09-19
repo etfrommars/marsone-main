@@ -109,9 +109,17 @@ export default function Navbar({ activeTab, setActiveTab, alienMode, setAlienMod
           }}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/20 via-cyan-500/10 to-transparent border border-emerald-500/40 flex items-center justify-center alien-glow-sm group-hover:border-emerald-400 transition-all">
-            <Terminal className="w-5 h-5 text-emerald-300" />
-            <span className="absolute -bottom-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#0df2c9]" />
+          <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-[#060e18] border border-emerald-500/40 flex items-center justify-center alien-glow-sm group-hover:border-emerald-400 group-hover:shadow-[0_0_15px_rgba(13,242,201,0.4)] transition-all">
+            <img 
+              src="/alien-avatar.jpg" 
+              alt="异星人头像" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/favicon.svg';
+              }}
+            />
+            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#0df2c9] border border-[#05080f]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
